@@ -61,3 +61,10 @@ behaviour transparent -- every function maps one Python object to one DER TLV.
   alphabet (notably `@`); use `der_ia5_string` or `der_utf8_string` instead.
 - `der_context` supports tag numbers 0-30 only, which covers every context tag
   in RFC 5280.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
